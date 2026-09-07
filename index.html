@@ -1,173 +1,666 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autolords - Automobile Mechanics & Overhauling</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AUTOLORDS — Engr. Jidey</title>
+<meta name="description" content="I work with gears. Transmission systems, custom gear work, and the process behind them — told by the person who does it.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%230a0b0d'/%3E%3Cg fill='none' stroke='%234a86e0' stroke-width='4' stroke-linecap='round'%3E%3Ccircle cx='32' cy='32' r='13'/%3E%3Ccircle cx='32' cy='32' r='5'/%3E%3Cline x1='32' y1='4' x2='32' y2='13'/%3E%3Cline x1='32' y1='51' x2='32' y2='60'/%3E%3Cline x1='4' y1='32' x2='13' y2='32'/%3E%3Cline x1='51' y1='32' x2='60' y2='32'/%3E%3Cline x1='11.5' y1='11.5' x2='18' y2='18'/%3E%3Cline x1='46' y1='46' x2='52.5' y2='52.5'/%3E%3Cline x1='52.5' y1='11.5' x2='46' y2='18'/%3E%3Cline x1='18' y1='46' x2='11.5' y2='52.5'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#0a0b0d;
+    --panel:#131519;
+    --line:rgba(255,255,255,0.09);
+    --line-strong:rgba(255,255,255,0.18);
+    --blue:#4a86e0;
+    --blue-dim:rgba(74,134,224,0.4);
+    --text:#f1efe9;
+    --text-dim:#9b978f;
+    --text-faint:#5c5954;
+    --maxw:1160px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--void); color:var(--text);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  a{ color:inherit; }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+  @media (max-width:600px){ .wrap{ padding:0 20px; } }
+  section{ padding:130px 0; position:relative; border-bottom:1px solid var(--line); overflow:hidden; }
+  @media (max-width:760px){ section{ padding:88px 0; } }
 
-        /* Header */
-        header {
-            background: linear-gradient(to right, #0b3d91, #1e90ff);
-            color: white;
-            padding: 20px 10%;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5em;
-            letter-spacing: 2px;
-        }
-        header p {
-            margin: 5px 0 0;
-            font-size: 1.2em;
-        }
+  h1,h2,h3{ font-family:'Space Grotesk', sans-serif; letter-spacing:-0.01em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; }
 
-        /* Navigation Bar */
-        nav {
-            background: #333;
-            padding: 10px;
-            text-align: center;
-        }
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 1.1em;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-        nav a:hover {
-            color: #1e90ff;
-        }
+  #bgTech{ position:fixed; inset:0; z-index:0; pointer-events:none; width:100%; height:100%; }
+  .pulse{ animation:pulse 5s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:0.15; } 50%{ opacity:0.75; } }
+  @media (prefers-reduced-motion:reduce){ .pulse{ animation:none; opacity:0.35; } html{scroll-behavior:auto;} }
 
-        /* Section Styling */
-        section {
-            padding: 40px 10%;
-        }
-        section h2 {
-            color: #0b3d91;
-            border-bottom: 2px solid #1e90ff;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
+  .idx{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--blue);
+    display:flex; align-items:center; gap:10px; margin-bottom:22px; letter-spacing:0.02em; position:relative; z-index:1;
+  }
+  .idx .rule{ width:26px; height:1px; background:var(--blue-dim); display:inline-block; }
+  .idx .g{ font-size:13px; }
 
-        /* Services Section */
-        .services {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-        .service {
-            flex: 1;
-            min-width: 300px;
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .service:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-        .service img {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-        .service h3 {
-            color: #0b3d91;
-        }
+  .process-node{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
+  .process-node.in{ opacity:1; transform:translateY(0); }
+  @media (prefers-reduced-motion:reduce){ .process-node{ opacity:1; transform:none; transition:none; } }
 
-        /* About and Contact Section */
-        #about, #contact {
-            background: #140d82;
-            color: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        #about p, #contact p {
-            margin: 10px 0;
-        }
+  .sec-head{ font-size:clamp(1.6rem,3.4vw,2.3rem); font-weight:700; margin-bottom:16px; position:relative; z-index:1; }
+  .sec-lede{ color:var(--text-dim); max-width:50ch; margin-bottom:42px; font-size:1.02rem; position:relative; z-index:1; }
 
-        /* Footer */
-        footer {
-            background: #0b3d91;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            margin-top: 20px;
-        }
-        footer p {
-            margin: 0;
-        }
+  /* ===== NAV ===== */
+  header.nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    background:rgba(10,11,13,0.8); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{ max-width:var(--maxw); margin:0 auto; padding:16px 28px; display:flex; align-items:center; justify-content:space-between; }
+  .brand{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:15px; text-decoration:none; letter-spacing:0.01em; }
+  .nav-idx{ display:flex; gap:20px; font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--text-faint); }
+  .nav-idx a{ text-decoration:none; transition:color .2s ease; }
+  .nav-idx a:hover{ color:var(--blue); }
+  .nav-cta{
+    font-family:'IBM Plex Mono', monospace; font-size:12px; text-decoration:none; color:var(--text-dim);
+    border:1px solid var(--line-strong); padding:8px 16px; border-radius:20px; transition:all .2s ease; white-space:nowrap;
+  }
+  .nav-cta:hover{ border-color:var(--blue); color:var(--blue); }
+  .nav-toggle{ display:none; background:none; border:1px solid var(--line-strong); color:var(--text); width:38px; height:38px; border-radius:6px; cursor:pointer; font-family:'IBM Plex Mono',monospace; }
+  .mobile-menu{
+    display:none; position:fixed; inset:64px 0 0 0; background:var(--void); z-index:90;
+    flex-direction:column; padding:36px 28px; gap:22px;
+  }
+  .mobile-menu.open{ display:flex; }
+  .mobile-menu a{ font-family:'IBM Plex Mono', monospace; font-size:15px; text-decoration:none; color:var(--text-dim); }
+  @media (max-width:800px){
+    .nav-idx{ display:none; }
+    .nav-cta{ display:none; }
+    .nav-toggle{ display:block; }
+  }
 
-    </style>
+  /* ===== OPENING ===== */
+  .opening{ padding-top:150px; border-bottom:1px solid var(--line); }
+  @media (max-width:760px){ .opening{ padding-top:110px; } }
+  .opening-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:50px; align-items:center; position:relative; z-index:1; }
+  @media (max-width:900px){ .opening-grid{ grid-template-columns:1fr; gap:56px; } }
+
+  .hero-mega{
+    position:absolute; right:-6%; top:50%; transform:translateY(-50%);
+    font-size:min(46vw,560px); line-height:1; color:var(--text); opacity:0.035;
+    pointer-events:none; user-select:none; z-index:0; font-family:'Space Grotesk',sans-serif;
+  }
+  @media (max-width:900px){ .hero-mega{ font-size:min(70vw,360px); right:-14%; top:14%; transform:none; } }
+
+  .statement{ font-size:clamp(2.1rem, 5vw, 3.6rem); font-weight:700; line-height:1.08; margin-bottom:26px; }
+  .statement .dim{ color:var(--text-faint); }
+  .statement .u{ position:relative; }
+  .statement .u::after{ content:''; position:absolute; left:0; right:0; bottom:6px; height:3px; background:var(--blue); }
+
+  .opening p.lede{ color:var(--text-dim); font-size:1.02rem; max-width:52ch; margin-bottom:34px; }
+
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:0.03em; text-decoration:none;
+    padding:13px 24px; border-radius:6px; display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--line-strong); transition:all .2s ease; cursor:pointer;
+  }
+  .btn-primary{ background:var(--blue); color:#08121f; border-color:var(--blue); font-weight:500; }
+  .btn-primary:hover{ background:#3a70c4; }
+  .btn-ghost{ color:var(--text-dim); background:transparent; }
+  .btn-ghost:hover{ border-color:var(--blue); color:var(--text); }
+
+  .diagram-wrap{ position:relative; display:flex; flex-direction:column; align-items:center; gap:18px; }
+  .diagram-hint{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-faint); letter-spacing:0.04em; }
+  svg.gear-diagram{ width:100%; max-width:400px; height:auto; overflow:visible; }
+  .zone{ cursor:pointer; transition:stroke .25s ease, opacity .25s ease; }
+  .zone-ring{ stroke:var(--text-faint); fill:none; stroke-width:1.4; }
+  .zone-sun{ stroke:var(--text-faint); fill:none; stroke-width:1.4; }
+  .zone-planet circle{ stroke:var(--text-faint); fill:none; stroke-width:1.4; transition:stroke .25s ease; }
+  .zone.active, .zone-planet.active circle{ stroke:var(--blue); }
+  .gear-diagram .tick{ stroke:var(--line-strong); stroke-width:1; }
+  .gear-diagram .tick.active{ stroke:var(--blue-dim); }
+  .gear-diagram .hub{ stroke:var(--line-strong); fill:none; stroke-width:1; }
+
+  .readout{ font-family:'IBM Plex Mono', monospace; text-align:center; min-height:64px; max-width:320px; }
+  .readout .label{ font-size:12px; color:var(--blue); letter-spacing:0.06em; margin-bottom:6px; }
+  .readout .desc{ font-size:12.5px; color:var(--text-dim); line-height:1.6; }
+
+  /* ===== PLAIN TERMS — editorial flow ===== */
+  .flow-editorial{ position:relative; max-width:760px; padding-left:26px; border-left:1px solid var(--line-strong); }
+  .flow-step{ margin-bottom:52px; position:relative; }
+  .flow-step:last-child{ margin-bottom:0; }
+  .flow-step::before{
+    content:''; position:absolute; left:-31px; top:6px; width:9px; height:9px; border-radius:50%;
+    background:var(--void); border:1.5px solid var(--blue);
+  }
+  .flow-step .flabel{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--blue); letter-spacing:0.08em; margin-bottom:10px; }
+  .flow-step .fquote{ font-family:'Space Grotesk', sans-serif; font-size:clamp(1.2rem,2.6vw,1.7rem); font-weight:500; line-height:1.35; }
+  .flow-step:nth-child(odd) .fquote{ margin-left:0; }
+  .flow-step:nth-child(even) .fquote{ color:var(--text-dim); font-weight:400; font-size:clamp(1.05rem,2vw,1.3rem); }
+
+  /* ===== PROCESS ===== */
+  .breakout{
+    font-family:'Space Grotesk', sans-serif; font-weight:700;
+    font-size:clamp(2.2rem, 8vw, 5rem); line-height:0.98; letter-spacing:-0.02em;
+    margin:0 0 70px; position:relative; z-index:1;
+  }
+  .breakout .soft{ color:var(--text-faint); }
+
+  .process-rail{ position:relative; z-index:1; }
+  .rail-line{ position:absolute; left:0; right:0; top:5px; height:1px; background:var(--line-strong); }
+  @media (max-width:900px){ .rail-line{ display:none; } }
+  .process-row{ display:flex; justify-content:space-between; gap:24px; }
+  @media (max-width:900px){ .process-row{ flex-direction:column; gap:0; } }
+  .process-node{ flex:1; position:relative; padding-right:10px; }
+  @media (max-width:900px){
+    .process-node{ padding:0 0 34px 26px; border-left:1px solid var(--line-strong); margin-left:5px; }
+    .process-node:last-child{ border-left:none; padding-bottom:0; }
+  }
+  .pnode-dot{ width:11px; height:11px; border-radius:50%; background:var(--void); border:1.5px solid var(--text-faint); margin-bottom:20px; transition:border-color .3s ease, background .3s ease; }
+  .process-node.in .pnode-dot{ border-color:var(--blue); background:var(--blue); }
+  @media (max-width:900px){ .pnode-dot{ position:absolute; left:-6px; top:2px; margin:0; } }
+  .process-node .pnum{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--blue); margin-bottom:10px; }
+  .process-node h3{ font-size:17px; font-weight:500; margin-bottom:10px; }
+  .process-node p{ font-size:13px; color:var(--text-faint); max-width:26ch; }
+
+  /* ===== THE BENCH ===== */
+  .bench{ display:flex; gap:1px; background:var(--line); border-top:1px solid var(--line); border-bottom:1px solid var(--line); position:relative; z-index:1; }
+  @media (max-width:800px){ .bench{ flex-direction:column; } }
+  .bench-item{ flex:1; padding:36px 28px; background:var(--panel); }
+  .bench-item.feature{ flex:1.5; background:var(--void); }
+  .bench-item .tname{ font-family:'Space Grotesk', sans-serif; font-size:18px; color:var(--text); font-weight:700; margin-bottom:12px; }
+  .bench-item.feature .tname{ font-size:24px; }
+  .bench-item p{ font-size:13.5px; color:var(--text-dim); max-width:32ch; }
+
+  /* ===== WORK — archive ===== */
+  .case{ display:flex; flex-wrap:wrap; gap:44px; padding:64px 0; border-top:1px solid var(--line); position:relative; z-index:1; align-items:center; }
+  .case:last-child{ border-bottom:none; }
+  .case:nth-child(even){ flex-direction:row-reverse; }
+  .case-copy{ flex:1 1 340px; position:relative; }
+  .case-visual{ flex:1 1 280px; position:relative; }
+  .case-bignum{
+    position:absolute; top:-40px; left:-6px; font-family:'Space Grotesk', sans-serif; font-weight:700;
+    font-size:clamp(3.5rem,9vw,6.5rem); color:var(--line-strong); z-index:-1; line-height:1; pointer-events:none;
+  }
+  .case:nth-child(even) .case-bignum{ left:auto; right:-6px; }
+  .case-tag{ font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--blue); margin-bottom:8px; }
+  .case-open{ font-family:'Space Grotesk', sans-serif; font-size:clamp(1.3rem,2.4vw,1.7rem); font-weight:700; }
+  .case-lede{ color:var(--text-dim); font-size:14.5px; margin-top:14px; max-width:44ch; }
+  .case-diagram{ width:100%; max-width:260px; height:auto; overflow:visible; }
+  .cd-line{ stroke:var(--line-strong); stroke-width:1; }
+  .cd-node{ fill:none; stroke:var(--text-faint); stroke-width:1.4; }
+  .cd-hi{ stroke:var(--blue); fill:rgba(74,134,224,0.14); }
+  .cd-leader{ stroke:var(--blue-dim); stroke-width:1; }
+  .cd-tag{ font-family:'IBM Plex Mono', monospace; font-size:8px; fill:var(--blue); text-anchor:middle; letter-spacing:0.04em; }
+  .spec-rows{ font-family:'IBM Plex Mono', monospace; font-size:12px; margin-top:16px; }
+  .spec-row{ display:flex; gap:16px; padding:10px 0; border-top:1px solid var(--line); color:var(--text-faint); }
+  .spec-row:last-child{ border-bottom:1px solid var(--line); }
+  .spec-row span:first-child{ width:90px; flex-shrink:0; color:var(--text-faint); }
+  .spec-row span:last-child{ color:var(--text-dim); }
+
+  /* ===== BOOK — quiet & premium ===== */
+  .book-section{ border-bottom:none; }
+  .book-grid{ display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start; position:relative; z-index:1; }
+  @media (max-width:800px){ .book-grid{ grid-template-columns:1fr; gap:34px; } }
+  .book-copy p{ color:var(--text-dim); font-size:15px; max-width:44ch; }
+
+  .field{ margin-bottom:20px; position:relative; }
+  .field label{ display:block; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-faint); margin-bottom:9px; letter-spacing:0.03em; }
+
+  .select-box{ position:relative; }
+  .select-btn{
+    width:100%; text-align:left; background:var(--panel); border:1px solid var(--line-strong); color:var(--text);
+    padding:13px 16px; border-radius:6px; font-family:'IBM Plex Sans', sans-serif; font-size:14px;
+    cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:border-color .2s ease;
+  }
+  .select-btn:hover, .select-btn.open{ border-color:var(--blue); }
+  .select-btn .chev{ font-family:'IBM Plex Mono', monospace; color:var(--blue); font-size:11px; transition:transform .2s ease; }
+  .select-btn.open .chev{ transform:rotate(180deg); }
+  .select-list{
+    position:absolute; top:calc(100% + 8px); left:0; right:0; z-index:20;
+    background:var(--panel); border:1px solid var(--line-strong); border-radius:6px;
+    max-height:260px; overflow-y:auto; display:none; box-shadow:0 12px 30px rgba(0,0,0,0.4);
+  }
+  .select-list.open{ display:block; }
+  .select-opt{ padding:11px 16px; font-size:13.5px; color:var(--text-dim); cursor:pointer; transition:background .15s ease, color .15s ease; }
+  .select-opt:hover, .select-opt.focused{ background:var(--void); color:var(--text); }
+  .select-opt.selected{ color:var(--blue); }
+
+  .field textarea{
+    width:100%; background:var(--panel); border:1px solid var(--line-strong); color:var(--text);
+    padding:13px 16px; border-radius:6px; font-family:'IBM Plex Sans', sans-serif; font-size:14px; resize:vertical; min-height:96px;
+  }
+  .field textarea:focus, .select-btn:focus-visible{ outline:none; border-color:var(--blue); }
+
+  /* ===== FOOTER ===== */
+  footer{ padding:44px 0; position:relative; z-index:1; }
+  .footer-top{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:15px; margin-bottom:6px; }
+  .footer-tag{ font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--text-faint); letter-spacing:0.08em; margin-bottom:26px; }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--text-faint); }
+  .footer-row a{ text-decoration:none; color:var(--text-dim); transition:color .2s ease; }
+  .footer-row a:hover{ color:var(--blue); }
+  .social-row{ display:flex; gap:16px; flex-wrap:wrap; }
+</style>
 </head>
 <body>
 
-<header>
-    <h1>Welcome to Autolords</h1>
-    <p>Your Trusted Partner in Automobile Mechanics and Overhauling</p>
+<svg id="bgTech" viewBox="0 0 1000 1000" preserveAspectRatio="xMaxYMin slice" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="rgba(255,255,255,0.05)" fill="none" stroke-width="1">
+    <circle cx="860" cy="120" r="60"></circle>
+    <circle cx="860" cy="120" r="140"></circle>
+    <circle cx="860" cy="120" r="230"></circle>
+    <circle cx="860" cy="120" r="330"></circle>
+    <circle cx="860" cy="120" r="440"></circle>
+    <line x1="860" y1="-320" x2="860" y2="560"></line>
+    <line x1="420" y1="120" x2="1300" y2="120"></line>
+    <line x1="560" y1="-180" x2="1160" y2="420"></line>
+    <line x1="1160" y1="-180" x2="560" y2="420"></line>
+  </g>
+  <g stroke="rgba(255,255,255,0.06)">
+    <line x1="845" y1="120" x2="855" y2="120"></line>
+    <line x1="860" y1="105" x2="860" y2="115"></line>
+  </g>
+  <g fill="#4a86e0">
+    <circle class="pulse" cx="860" cy="-100" r="2.4" style="animation-delay:0s"></circle>
+    <circle class="pulse" cx="1090" cy="120" r="2.2" style="animation-delay:1.1s"></circle>
+    <circle class="pulse" cx="860" cy="340" r="2.2" style="animation-delay:2.2s"></circle>
+    <circle class="pulse" cx="630" cy="120" r="2" style="animation-delay:3.1s"></circle>
+    <circle class="pulse" cx="1030" cy="290" r="1.8" style="animation-delay:1.8s"></circle>
+    <circle class="pulse" cx="690" cy="-40" r="1.8" style="animation-delay:2.7s"></circle>
+  </g>
+</svg>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">AUTOLORDS</a>
+    <nav class="nav-idx">
+      <a href="#gears">01</a><a href="#plain">02</a><a href="#process">03</a><a href="#tools">04</a><a href="#work">05</a><a href="#book">06</a>
+    </nav>
+    <a href="#book" class="nav-cta">start a job</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">≡</button>
+  </div>
 </header>
 
-<nav>
-    <a href="#services">Services</a>
-    <a href="#about">About Us</a>
-    <a href="#contact">Contact</a>
-</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#gears">01 / gears</a>
+  <a href="#plain">02 / in plain terms</a>
+  <a href="#process">03 / process</a>
+  <a href="#tools">04 / the bench</a>
+  <a href="#work">05 / work</a>
+  <a href="#book">06 / start a job</a>
+</div>
 
-<section id="services">
-    <h2>Our Services</h2>
-    <div class="services">
-        <div class="service">
-            <img src="er.png"width="300px" alt="Engine Repair">
-            <h3>Engine Overhauling</h3>
-            <p>Complete engine diagnostics, repair, and rebuilding for all types of vehicles.</p>
+<main id="top">
+
+  <section class="opening" id="gears">
+    <div class="hero-mega" aria-hidden="true">&#9796;</div>
+    <div class="wrap opening-grid">
+      <div>
+        <p class="idx"><span class="rule"></span><span class="g">A.01 &#8635;</span></p>
+        <h1 class="statement">I work with gears.<br><span class="dim">Not just transmissions —</span><br>the whole <span class="u">system</span> underneath them.</h1>
+        <p class="lede">Every tooth, ratio and connection has a reason. Most of what I do is finding it before I touch a wrench. Trained at Yaba College of Technology — in transmission and gear work for over a decade since.</p>
+        <div class="cta-row">
+          <a href="#book" class="btn btn-primary">&#8594; start a job</a>
+          <a href="#process" class="btn btn-ghost">see how I work</a>
         </div>
-        <div class="service">
-            <img src="rm.png"width="300px" alt="Car Maintenance">
-            <h3>Routine Maintenance</h3>
-            <p>Oil changes, brake services, tire rotations, and more to keep your car in top shape.</p>
+      </div>
+
+      <div class="diagram-wrap">
+        <svg class="gear-diagram" viewBox="0 0 300 300" id="gearSvg">
+          <g id="ringTicks"></g>
+          <circle class="zone zone-ring" data-zone="ring" cx="150" cy="150" r="120"></circle>
+          <circle class="hub" cx="150" cy="150" r="96"></circle>
+          <g class="zone zone-planet" data-zone="planet">
+            <circle cx="150" cy="54" r="20"></circle>
+            <circle cx="233" cy="198" r="20"></circle>
+            <circle cx="67" cy="198" r="20"></circle>
+          </g>
+          <circle class="zone zone-sun" data-zone="sun" cx="150" cy="150" r="34"></circle>
+        </svg>
+        <p class="diagram-hint" id="diagramHint">hover a part / tap on mobile</p>
+        <div class="readout" id="readout">
+          <p class="label">&nbsp;</p>
+          <p class="desc">Ring, planets, sun — three parts, one system. Point at any of them.</p>
         </div>
-        <div class="service">
-            <img src="vc.png"width="300px" alt="Car Customization">
-            <h3>Vehicle Customization</h3>
-            <p>Upgrade your vehicle with custom paint, performance tuning, and accessories.</p>
-        </div>
+      </div>
     </div>
-</section>
+  </section>
 
-<section id="about">
-    <h2>About Us</h2>
-    <p>
-        At Autolords, we are passionate about automobiles. With over a decade of experience, 
-        our expert mechanics provide top-notch services to ensure your vehicle runs smoothly. 
-        From minor repairs to full overhauls, we handle it all with precision and care.
-    </p>
-</section>
-<p></p>
-<section id="contact">
-    <h2>Contact Us</h2>
-    <p>Email: jideshowluscrown@gmail.com</p>
-    <p>Phone: 07085187692</p>
-    <p>Address: Gbala Street, Badagry, Lagos.</p>
-</section>
+  <section id="plain">
+    <div class="wrap">
+      <p class="idx"><span class="rule"></span><span class="g">A.02 &#9792;</span></p>
+      <h2 class="sec-head">In plain terms.</h2>
+      <p class="sec-lede">You don't need to know what a planetary gear is for this part to make sense.</p>
+      <div class="flow-editorial">
+        <div class="flow-step"><p class="flabel">you bring me</p><p class="fquote">"My car is changing gears badly."</p></div>
+        <div class="flow-step"><p class="flabel">I look for</p><p class="fquote">What the transmission is actually doing wrong.</p></div>
+        <div class="flow-step"><p class="flabel">I work on</p><p class="fquote">The component causing it — not everything at once.</p></div>
+        <div class="flow-step"><p class="flabel">you get</p><p class="fquote">A system that shifts the way it should.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process">
+    <div class="wrap">
+      <p class="idx"><span class="rule"></span><span class="g">A.03 &#9651;</span></p>
+      <h2 class="breakout">I don't like <span class="soft">guessing.</span></h2>
+      <p class="sec-lede" style="margin-top:-40px;">I diagnose first, understand the system, then decide what needs to happen.</p>
+      <div class="process-rail">
+        <div class="rail-line"></div>
+        <div class="process-row" id="processList">
+          <div class="process-node"><div class="pnode-dot"></div><p class="pnum">01</p><h3>Diagnose</h3><p>Before anything comes apart, I need to know exactly what's failing, and why.</p></div>
+          <div class="process-node"><div class="pnode-dot"></div><p class="pnum">02</p><h3>Model</h3><p>Where a part needs designing, not just replacing, I build it in SolidWorks first.</p></div>
+          <div class="process-node"><div class="pnode-dot"></div><p class="pnum">03</p><h3>Machine</h3><p>CNC precision — for tolerances hand tools can't hold.</p></div>
+          <div class="process-node"><div class="pnode-dot"></div><p class="pnum">04</p><h3>Assemble</h3><p>Every component goes back with intent — nothing forced, nothing guessed.</p></div>
+          <div class="process-node"><div class="pnode-dot"></div><p class="pnum">05</p><h3>Test</h3><p>It doesn't leave the bench until it behaves exactly the way it should.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools">
+    <div class="wrap">
+      <p class="idx"><span class="rule"></span><span class="g">A.04 &#9796;</span></p>
+      <h2 class="sec-head">The bench.</h2>
+      <p class="sec-lede">Experience tells me what to look for. Technology gives me a better way to get there.</p>
+    </div>
+    <div class="bench wrap" style="padding-left:0; padding-right:0;">
+      <div class="bench-item feature"><p class="tname">SolidWorks</p><p>I use it to turn an idea into a model before it ever reaches a machine.</p></div>
+      <div class="bench-item"><p class="tname">CNC</p><p>Some parts need more precision than a hand tool can manage. That's where this comes in.</p></div>
+      <div class="bench-item"><p class="tname">Bosch Diagnostics</p><p>I use it to understand what's happening before I start taking things apart.</p></div>
+      <div class="bench-item"><p class="tname">CAD / CAM</p><p>The bridge between a digital model and the physical part.</p></div>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <p class="idx"><span class="rule"></span><span class="g">A.05 &#8594;</span></p>
+      <h2 class="sec-head" style="margin-bottom:8px;">What I've built.</h2>
+      <p class="sec-lede" style="margin-bottom:10px;">A few jobs worth walking through.</p>
+
+      <div class="case">
+        <div class="case-copy">
+          <span class="case-bignum">01</span>
+          <p class="case-tag">W.01 / TRANSMISSION</p>
+          <p class="case-open">I took this one apart.</p>
+          <p class="case-lede">The fault wasn't obvious from the outside. I traced the system stage by stage until I found where it actually started, then rebuilt from there.</p>
+          <div class="spec-rows">
+            <div class="spec-row"><span>SYSTEM</span><span>10-speed automatic transmission</span></div>
+            <div class="spec-row"><span>PROCESS</span><span>Full teardown, diagnostics, rebuild</span></div>
+            <div class="spec-row"><span>OUTCOME</span><span>Back to spec, shifting clean</span></div>
+          </div>
+        </div>
+        <div class="case-visual">
+          <svg class="case-diagram" viewBox="0 0 160 70">
+            <line x1="10" y1="35" x2="150" y2="35" class="cd-line"></line>
+            <circle cx="30" cy="35" r="9" class="cd-node"></circle>
+            <circle cx="70" cy="35" r="9" class="cd-node cd-hi"></circle>
+            <circle cx="110" cy="35" r="9" class="cd-node"></circle>
+            <circle cx="150" cy="35" r="9" class="cd-node"></circle>
+            <line x1="70" y1="26" x2="70" y2="10" class="cd-leader"></line>
+            <text x="70" y="8" class="cd-tag">FAULT</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-copy">
+          <span class="case-bignum">02</span>
+          <p class="case-tag">W.02 / CUSTOM GEAR</p>
+          <p class="case-open">Designed, machined, tested.</p>
+          <p class="case-lede">Sometimes the part you need doesn't exist yet. This one started in SolidWorks and ended on the CNC bench.</p>
+          <div class="spec-rows">
+            <div class="spec-row"><span>SYSTEM</span><span>Lightweight performance gearbox</span></div>
+            <div class="spec-row"><span>PROCESS</span><span>Modeled, simulated, machined</span></div>
+            <div class="spec-row"><span>OUTCOME</span><span>Lighter, stronger, built to the brief</span></div>
+          </div>
+        </div>
+        <div class="case-visual">
+          <svg class="case-diagram" viewBox="0 0 160 70">
+            <line x1="10" y1="35" x2="150" y2="35" class="cd-line"></line>
+            <circle cx="30" cy="35" r="9" class="cd-node"></circle>
+            <circle cx="70" cy="35" r="9" class="cd-node"></circle>
+            <circle cx="110" cy="35" r="9" class="cd-node"></circle>
+            <circle cx="150" cy="35" r="9" class="cd-node cd-hi"></circle>
+            <line x1="150" y1="26" x2="150" y2="10" class="cd-leader"></line>
+            <text x="150" y="8" class="cd-tag">DESIGNED</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-copy">
+          <span class="case-bignum">03</span>
+          <p class="case-tag">W.03 / DIFFERENTIAL</p>
+          <p class="case-open">Reinforced, not just repaired.</p>
+          <p class="case-lede">A heavy-duty differential that needed more than a patch. I rebuilt it to outlast the conditions it was going back into.</p>
+          <div class="spec-rows">
+            <div class="spec-row"><span>SYSTEM</span><span>Heavy-duty differential</span></div>
+            <div class="spec-row"><span>PROCESS</span><span>Diagnosis, reinforcement, reassembly</span></div>
+            <div class="spec-row"><span>OUTCOME</span><span>Extended service life</span></div>
+          </div>
+        </div>
+        <div class="case-visual">
+          <svg class="case-diagram" viewBox="0 0 160 70">
+            <line x1="10" y1="35" x2="150" y2="35" class="cd-line"></line>
+            <circle cx="30" cy="35" r="9" class="cd-node cd-hi"></circle>
+            <circle cx="70" cy="35" r="9" class="cd-node"></circle>
+            <circle cx="110" cy="35" r="9" class="cd-node"></circle>
+            <circle cx="150" cy="35" r="9" class="cd-node"></circle>
+            <line x1="30" y1="26" x2="30" y2="10" class="cd-leader"></line>
+            <text x="30" y="8" class="cd-tag">REINFORCED</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="case">
+        <div class="case-copy">
+          <span class="case-bignum">04</span>
+          <p class="case-tag">W.04 / PERFORMANCE UPGRADE</p>
+          <p class="case-open">Sharper shifts, on purpose.</p>
+          <p class="case-lede">A stock transmission upgraded with custom parts — not just for numbers, for how it actually feels to drive.</p>
+          <div class="spec-rows">
+            <div class="spec-row"><span>SYSTEM</span><span>Performance transmission</span></div>
+            <div class="spec-row"><span>PROCESS</span><span>Custom parts, retuning</span></div>
+            <div class="spec-row"><span>OUTCOME</span><span>Faster, cleaner shifts</span></div>
+          </div>
+        </div>
+        <div class="case-visual">
+          <svg class="case-diagram" viewBox="0 0 160 70">
+            <line x1="10" y1="35" x2="150" y2="35" class="cd-line"></line>
+            <circle cx="30" cy="35" r="9" class="cd-node"></circle>
+            <circle cx="70" cy="35" r="9" class="cd-node"></circle>
+            <circle cx="110" cy="35" r="9" class="cd-node cd-hi"></circle>
+            <circle cx="150" cy="35" r="9" class="cd-node"></circle>
+            <line x1="110" y1="26" x2="110" y2="10" class="cd-leader"></line>
+            <text x="110" y="8" class="cd-tag">UPGRADED</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="book" class="book-section">
+    <div class="wrap book-grid">
+      <div class="book-copy">
+        <p class="idx"><span class="rule"></span><span class="g">A.06 +</span></p>
+        <h2 class="sec-head">Ready to look at yours?</h2>
+        <p>If something's making noise, slipping, or just doesn't feel right — tell me what's going on. I'll get back to you on WhatsApp.</p>
+      </div>
+
+      <div>
+        <div class="field">
+          <label id="serviceLabel">Service</label>
+          <div class="select-box">
+            <button type="button" class="select-btn" id="selectBtn" aria-haspopup="listbox" aria-expanded="false">
+              <span id="selectValue">Transmission repair</span>
+              <span class="chev">&#9662;</span>
+            </button>
+            <div class="select-list" id="selectList" role="listbox" tabindex="-1">
+              <div class="select-opt selected" role="option" data-value="Transmission repair">Transmission repair</div>
+              <div class="select-opt" role="option" data-value="Diagnostics">Diagnostics</div>
+              <div class="select-opt" role="option" data-value="Custom gear design">Custom gear design</div>
+              <div class="select-opt" role="option" data-value="Performance upgrade">Performance upgrade</div>
+              <div class="select-opt" role="option" data-value="Differential repair">Differential repair</div>
+              <div class="select-opt" role="option" data-value="Torque converter repair">Torque converter repair</div>
+              <div class="select-opt" role="option" data-value="ECU programming">ECU programming</div>
+              <div class="select-opt" role="option" data-value="Consulting">Consulting</div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="serviceDetail">What's going on (optional)</label>
+          <textarea id="serviceDetail" placeholder="Vehicle make, model, and what you're noticing"></textarea>
+        </div>
+        <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="sendBooking()">&#8594; send to whatsapp</button>
+      </div>
+    </div>
+  </section>
+
+</main>
 
 <footer>
-    <p>&copy; 2024 Autolords. All rights reserved.</p>
+  <div class="wrap">
+    <p class="footer-top">AUTOLORDS</p>
+    <p class="footer-tag">THE GEAR MASTER</p>
+    <div class="footer-row">
+      <span>&copy; <span id="year"></span> AUTOLORDS</span>
+      <div class="social-row">
+        <a href="https://wa.me/+2347085187692" target="_blank" rel="noopener">WHATSAPP</a>
+        <a href="https://www.tiktok.com/@.jidey.autolords" target="_blank" rel="noopener">TIKTOK</a>
+        <a href="https://x.com/autocrownz" target="_blank" rel="noopener">X</a>
+        <a href="https://instagram.com/" target="_blank" rel="noopener">INSTAGRAM</a>
+        <a href="https://facebook.com/" target="_blank" rel="noopener">FACEBOOK</a>
+      </div>
+      <span>Design &amp; development — <a href="https://siscoask.vercel.app" target="_blank" rel="noopener">Sisco Ask &#8599;</a></span>
+    </div>
+  </div>
 </footer>
 
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* mobile nav */
+const navToggle = document.getElementById('navToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+navToggle.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+/* scroll reveal for process nodes */
+const revealTargets = document.querySelectorAll('.process-node');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if(entry.isIntersecting){
+      const el = entry.target;
+      const delay = Array.from(revealTargets).indexOf(el) * 90;
+      setTimeout(() => el.classList.add('in'), delay);
+      io.unobserve(el);
+    }
+  });
+}, { threshold:0.2 });
+revealTargets.forEach(el => io.observe(el));
+
+/* ring ticks for gear diagram */
+(function(){
+  const ns = "http://www.w3.org/2000/svg";
+  const g = document.getElementById('ringTicks');
+  const cx=150, cy=150, rIn=120, rOut=132, teeth=28;
+  for(let i=0;i<teeth;i++){
+    const a = (i/teeth)*Math.PI*2;
+    const x1 = cx + rIn*Math.cos(a), y1 = cy + rIn*Math.sin(a);
+    const x2 = cx + rOut*Math.cos(a), y2 = cy + rOut*Math.sin(a);
+    const line = document.createElementNS(ns,'line');
+    line.setAttribute('x1',x1); line.setAttribute('y1',y1);
+    line.setAttribute('x2',x2); line.setAttribute('y2',y2);
+    line.setAttribute('class','tick');
+    g.appendChild(line);
+  }
+})();
+
+/* interactive gear diagram */
+const zoneInfo = {
+  sun: { label:'SUN / INPUT', desc:'Where rotational force enters the system.' },
+  planet: { label:'PLANETARY', desc:'Controls ratio and torque — they translate one motion into another.' },
+  ring: { label:'RING / OUTPUT', desc:'Delivers the final motion, set by the ratio locked in.' }
+};
+const zones = document.querySelectorAll('.zone');
+const readoutLabel = document.querySelector('#readout .label');
+const readoutDesc = document.querySelector('#readout .desc');
+const ticks = document.querySelectorAll('.tick');
+
+function activateZone(name){
+  zones.forEach(z => z.classList.toggle('active', z.dataset.zone === name));
+  ticks.forEach(t => t.classList.toggle('active', name === 'ring'));
+  const info = zoneInfo[name];
+  if(info){
+    readoutLabel.textContent = info.label;
+    readoutDesc.textContent = info.desc;
+  }
+}
+function resetZone(){
+  zones.forEach(z => z.classList.remove('active'));
+  ticks.forEach(t => t.classList.remove('active'));
+  readoutLabel.textContent = '\u00A0';
+  readoutDesc.textContent = 'Ring, planets, sun — three parts, one system. Point at any of them.';
+}
+zones.forEach(z => {
+  const name = z.dataset.zone;
+  z.addEventListener('mouseenter', () => activateZone(name));
+  z.addEventListener('mouseleave', resetZone);
+  z.addEventListener('click', () => activateZone(name));
+});
+
+/* custom select */
+const selectBtn = document.getElementById('selectBtn');
+const selectList = document.getElementById('selectList');
+const selectValue = document.getElementById('selectValue');
+const options = Array.from(selectList.querySelectorAll('.select-opt'));
+let currentValue = options[0].dataset.value;
+
+function closeSelect(){
+  selectList.classList.remove('open');
+  selectBtn.classList.remove('open');
+  selectBtn.setAttribute('aria-expanded','false');
+}
+function openSelect(){
+  selectList.classList.add('open');
+  selectBtn.classList.add('open');
+  selectBtn.setAttribute('aria-expanded','true');
+}
+selectBtn.addEventListener('click', () => {
+  selectList.classList.contains('open') ? closeSelect() : openSelect();
+});
+options.forEach(opt => {
+  opt.addEventListener('click', () => {
+    options.forEach(o => o.classList.remove('selected'));
+    opt.classList.add('selected');
+    currentValue = opt.dataset.value;
+    selectValue.textContent = currentValue;
+    closeSelect();
+  });
+});
+document.addEventListener('click', (e) => {
+  if(!e.target.closest('.select-box')) closeSelect();
+});
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape') closeSelect();
+});
+
+function sendBooking(){
+  const detail = document.getElementById('serviceDetail').value.trim();
+  const msg = `AUTOLORDS booking: ${currentValue}\n${detail ? detail : "No extra details provided."}\nFrom: [Your name]`;
+  const url = `https://api.whatsapp.com/send?phone=+2347085187692&text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+</script>
 </body>
 </html>
